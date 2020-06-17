@@ -1,0 +1,12 @@
+.login {
+    // --background: url('../../assets/img/background.jpg') repeat 100% 100%;
+    --background: linear-gradient(to bottom, rgb(0, 19, 54), rgb(0, 58, 167));
+}
+
+.vertical-center{
+    margin-top: 10%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+  }
