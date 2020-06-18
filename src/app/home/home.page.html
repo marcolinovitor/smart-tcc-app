@@ -49,7 +49,7 @@
         </div>
 
         <ion-row *ngFor="let ordem of ordens let i = index">
-            <ion-card *ngIf="render && ordens.length > 0;" class="{{ status(ordem.status).classBorder }}">
+            <ion-card *ngIf="render && ordens.length > 0;" class="fill {{ status(ordem.status).classBorder }}">
                 <ion-card-header>
                     <ion-card-title>
                         {{ ordem.carro.marca }} | {{ ordem.carro.modelo }}

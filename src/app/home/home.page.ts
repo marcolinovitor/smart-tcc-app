@@ -36,7 +36,6 @@ export class HomePage implements OnInit {
         this.homeService.getOrcamentos()
             .subscribe((osList) => {
                 this.ordens = osList;
-                console.log(osList);
             }, () => {
                 //
             }, () => {
@@ -70,10 +69,6 @@ export class HomePage implements OnInit {
         let total = 0;
         total = os.servicos.reduce((a, b) => a + b.valorServico, 0);
         return total;
-    }
-
-    menuClick(event) {
-        console.log(event);
     }
 
 

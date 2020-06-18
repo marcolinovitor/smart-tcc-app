@@ -6,6 +6,7 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { AppService } from './app.service';
 
 import { Plugins } from '@capacitor/core';
+import { Router } from '@angular/router';
 const { App } = Plugins;
 
 @Component({
@@ -19,22 +20,22 @@ export class AppComponent {
         private splashScreen: SplashScreen,
         private statusBar: StatusBar,
         private appService: AppService,
-        private routerOutlet: IonRouterOutlet,
+        private router: Router
     ) {
         this.initializeApp();
         this.isLoggedin();
-        this.platform.backButton.subscribeWithPriority(-1, () => {
-            if (!this.routerOutlet.canGoBack()) {
-                App.exitApp();
-            }
-        });
     }
 
     initializeApp() {
         this.platform.ready().then(() => {
             this.statusBar.styleDefault();
             this.splashScreen.hide();
-            this.platform.r
+            // console.log(this.router.url);
+            // this.platform.backButton.subscribeWithPriority(-1, () => {
+            //     if (this.router.url === '/login') {
+            //         App.exitApp();
+            //     }
+            // });
         });
     }
 
