@@ -6,6 +6,7 @@ import { env } from 'src/environments/env';
 import { Observable } from 'rxjs';
 import { LoginUser } from './model/login-user.interface';
 import { map, tap } from 'rxjs/operators';
+import { ClienteResponse } from '../shared/models/cliente.response';
 
 export interface Usuario {
     email: string;
@@ -19,37 +20,31 @@ export class LoginService {
         private readonly http: HttpClient,
         private readonly route: Router,
         private readonly session: SessionService,
+        // private readonly clienteService: Cliente
     ) { }
 
     login(user: Usuario): Observable<boolean> {
-        let isMecanico = false;
         return this.http.post<LoginUser>(`${env.api}/autenticar`, user)
             .pipe(
                 map((usuario: LoginUser) => {
                     if (usuario) {
-                        isMecanico = usuario.authenticatedRole === 'Mecanico';
                         this.session.saveOnSession(usuario);
                         return true;
                     }
                 }),
-                tap(() => {
-                    // if (!isMecanico) {
-                    //     this.getClienteAndSave(user.email, isMecanico)
-                    // } else {
-                    this.route.navigate(['home']);
-                    // }
-                }),
+                tap(() => this.getClienteAndSave(user.email)),
             );
+            
     }
 
-    // private getClienteAndSave(email: string, isMecanico: boolean): void {
-    //     this.clienteService.getClienteByEmail(email)
-    //         .subscribe(result => {
-    //             this.session.saveClientOnSession(result);
-    //         }, () => {
-    //             //
-    //         }, () => {
-    //             this.route.navigate([`admin${isMecanico ? '/dashboard' : '/orcamentos'}`]);
-    //         });
-    // }
+    private getClienteAndSave(email: string): void {
+        this.http.get<ClienteResponse>(`${env.api}/cliente/GetByEmail/${email}`)
+            .subscribe(result => {
+                this.session.saveClientOnSession(result);
+            }, () => {
+                
+            }, () => {
+                this.route.navigate(['home']);
+            });
+    }
 }

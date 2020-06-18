@@ -1,20 +1,91 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>
-      Blank
-    </ion-title>
-  </ion-toolbar>
-</ion-header>
+<ion-menu side="start" content-id="main-content">
+    <ion-header>
+        <ion-toolbar translucent color="primary">
+            <ion-title>Bem vindo, {{ clienteNome }}</ion-title>
+        </ion-toolbar>
+    </ion-header>
+    <ion-content>
+        <ion-list>
+            <ion-item [routerLink]="item.path" *ngFor="let item of sideMenu">
+                <ion-icon [name]="item.icon" slot="start"></ion-icon>
+                <ion-label>{{ item.label }}</ion-label>
+            </ion-item>
+        </ion-list>
+    </ion-content>
+    <ion-footer class="ion-no-border">
+        <ion-toolbar class="exit">
+            <ion-button (click)="logout()" color="danger">Sair</ion-button>
+        </ion-toolbar>
+    </ion-footer>
+</ion-menu>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<div class="ion-page" id="main-content">
+    <ion-header>
+        <ion-toolbar color="primary">
+            <ion-buttons slot="start">
+                <ion-menu-button></ion-menu-button>
+            </ion-buttons>
+            <ion-title>Home</ion-title>
+        </ion-toolbar>
+    </ion-header>
+    <ion-content color="light" [scrollEvents]="true">
+        <div *ngIf="!render" class="ion-padding custom-skeleton">
+            <ion-card>
+                <ion-card-header>
+                    <ion-card-title>
+                        <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+                    </ion-card-title>
+                    <ion-card-subtitle>
+                        <ion-skeleton-text animated style="width: 40%"></ion-skeleton-text>
+                    </ion-card-subtitle>
+                </ion-card-header>
 
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
-  </div>
-</ion-content>
+                <ion-card-content>
+                    <ion-skeleton-text animated></ion-skeleton-text>
+                    <ion-skeleton-text animated></ion-skeleton-text>
+                    <ion-skeleton-text animated></ion-skeleton-text>
+                </ion-card-content>
+            </ion-card>
+        </div>
+
+        <ion-row *ngFor="let ordem of ordens let i = index">
+            <ion-card *ngIf="render && ordens.length > 0;" class="{{ status(ordem.status).classBorder }}">
+                <ion-card-header>
+                    <ion-card-title>
+                        {{ ordem.carro.marca }} | {{ ordem.carro.modelo }}
+                        <span class="ion-float-right">{{ totalValue(ordem) | currency: 'BRL' }}</span>
+                    </ion-card-title>
+                    <ion-card-subtitle>
+                        <ion-col>
+                            <span>Nº {{ ordem.referencia }}</span>
+                        </ion-col>
+                        <ion-col>
+                            <span>{{ ordem.dataAbertura | date: 'dd/MM/yy' }}</span>
+                        </ion-col>
+                        <ion-col>
+                            <ion-badge class="ion-float-right" [color]="status(ordem.status).classBadge">
+                                {{ status(ordem.status).status }}</ion-badge>
+                        </ion-col>
+                    </ion-card-subtitle>
+                </ion-card-header>
+                <ion-card-content>
+                    <strong>Diagnosticado</strong>
+                    <br>
+                    {{ ordem.problemaDescrito }}
+                </ion-card-content>
+                <hr />
+                <ion-row>
+                    <ion-col *ngIf="ordem.status === 1 && !submitting">
+                        <ion-button (click)="aprovarOrcamento(i, 2, true)" class="ion-float-right" color="secondary">
+                            Aprovar</ion-button>
+                        <ion-button (click)="aprovarOrcamento(i, 3, false)" class="ion-float-right" fill="outline"
+                            color="medium">Reprovar</ion-button>
+                    </ion-col>
+                    <ion-col *ngIf="submitting && ordem.updating">
+                        <ion-progress-bar type="indeterminate"></ion-progress-bar>
+                    </ion-col>
+                </ion-row>
+            </ion-card>
+        </ion-row>
+    </ion-content>
+</div>
