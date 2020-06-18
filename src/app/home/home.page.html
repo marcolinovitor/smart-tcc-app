@@ -1,23 +1,4 @@
-<ion-menu side="start" content-id="main-content">
-    <ion-header>
-        <ion-toolbar translucent color="primary">
-            <ion-title>Bem vindo, {{ clienteNome }}</ion-title>
-        </ion-toolbar>
-    </ion-header>
-    <ion-content>
-        <ion-list>
-            <ion-item [routerLink]="item.path" *ngFor="let item of sideMenu">
-                <ion-icon [name]="item.icon" slot="start"></ion-icon>
-                <ion-label>{{ item.label }}</ion-label>
-            </ion-item>
-        </ion-list>
-    </ion-content>
-    <ion-footer class="ion-no-border">
-        <ion-toolbar class="exit">
-            <ion-button (click)="logout()" color="danger">Sair</ion-button>
-        </ion-toolbar>
-    </ion-footer>
-</ion-menu>
+<app-menu idPage="main-content"></app-menu>
 
 <div class="ion-page" id="main-content">
     <ion-header>

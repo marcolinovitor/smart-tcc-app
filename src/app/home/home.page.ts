@@ -11,25 +11,16 @@ import { IOrcamentoList } from './models/orcamento-list.interface';
 export class HomePage implements OnInit {
 
     render = false;
-    sideMenu = [];
-    clienteNome = '';
     ordens = new Array<IOrcamentoList>();
     submitting: boolean;
 
     constructor(
         private menu: MenuController,
         private homeService: HomeService
-    ) {
-        this.sideMenu = this.homeService.createMenu();
-        this.clienteNome = this.homeService.getCliente().nome.split(' ')[0];
-    }
+    ) { }
 
     ngOnInit() {
         this.getAll();
-    }
-
-    logout() {
-        this.homeService.logout();
     }
 
     getAll() {

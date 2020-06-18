@@ -31,7 +31,8 @@
                         </ion-row>
                         <ion-row>
                             <ion-col>
-                                <ion-button [disabled]="formLogin.invalid" (click)="login()" expand="block">Login</ion-button>
+                                <ion-progress-bar *ngIf="loggin" type="indeterminate"></ion-progress-bar>
+                                <ion-button *ngIf="!loggin" [disabled]="formLogin.invalid" (click)="login()" expand="block">Login</ion-button>
                             </ion-col>
                         </ion-row>
                     </form>

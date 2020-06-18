@@ -6,7 +6,7 @@ import { HomePage } from './home.page';
 
 import { HomePageRoutingModule } from './home-routing.module';
 import { HomeService } from './home.service';
-import { SharedModule } from '../shared/shared.module';
+import { MenuModule } from '../shared/menu/menu.module';
 
 
 @NgModule({
@@ -14,7 +14,8 @@ import { SharedModule } from '../shared/shared.module';
     CommonModule,
     FormsModule,
     IonicModule,
-    HomePageRoutingModule
+    MenuModule,
+    HomePageRoutingModule,
   ],
   declarations: [HomePage],
   providers: [

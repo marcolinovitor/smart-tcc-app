@@ -14,22 +14,6 @@ export class HomeService {
         private readonly http: HttpClient,
     ) { }
 
-    createMenu() {
-        return [
-            { label: 'Home', icon: 'home-outline', path: '' },
-            { label: 'Meus veículos', icon: 'car-sport-outline', path: 'veiculos' },
-            { label: 'Solicitação', icon: 'chatbubbles-outline', path: 'solicitacoes' },
-        ];
-    }
-
-    getCliente() {
-        return this.session.getClienteFromSession();
-    }
-
-    logout() {
-        this.session.logout('login');
-    }
-
     getOrcamentos(): Observable<IOrcamentoList[]> {
         const doc = this.session.getFromSession().clientDocument;
         return this.http.get<IOrcamentoList[]>(`${env.api}/ordemservico/buscarpordocumento/${doc}`)

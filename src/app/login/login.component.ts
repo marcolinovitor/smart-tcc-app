@@ -11,6 +11,7 @@ import { ToastController } from '@ionic/angular';
 export class LoginComponent implements OnInit {
 
     formLogin: FormGroup;
+    loggin = false;
 
     constructor(
         private readonly fb: FormBuilder,
@@ -26,6 +27,7 @@ export class LoginComponent implements OnInit {
     ngOnInit() { }
 
     login() {
+        this.loggin = true;
         this.loginService.login(this.formLogin.value)
             .subscribe(() => {
                 //
@@ -37,6 +39,9 @@ export class LoginComponent implements OnInit {
                     })
                         .then((toast) => toast.present())
                 }
+                this.loggin = false;
+            }, () => {
+                this.loggin = false;
             })
     }
 
