@@ -1,0 +1,30 @@
+<ion-row *ngIf="!pergunta.isClient">
+    <ion-col size="12">
+        <ion-item class="ion-float-left smart">
+            <ion-label class="ion-text-wrap">
+                <ion-text color="primary">
+                    <h3>@SmartMechanical</h3>
+                </ion-text>
+                <p>{{ pergunta.pergunta }}</p>
+            </ion-label>
+            <ion-select *ngIf="pergunta.alternativas" interface="action-sheet"
+                (ionChange)="setAlternativa($event.target.value)" [disabled]="selected" placeholder="Selecione">
+                <ion-select-option *ngFor="let alter of pergunta.alternativas" [value]="alter.id">
+                    {{ alter.alternativa }}</ion-select-option>
+            </ion-select>
+        </ion-item>
+    </ion-col>
+</ion-row>
+
+<ion-row *ngIf="pergunta.isClient">
+    <ion-col size="12">
+        <ion-item class="ion-float-right smart">
+            <ion-label class="ion-text-wrap">
+                <ion-text color="success">
+                    <h3>@Você</h3>
+                </ion-text>
+                <p>{{ pergunta.pergunta }}</p>
+            </ion-label>
+        </ion-item>
+    </ion-col>
+</ion-row>

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { PerguntasResponse, Alternativa } from './models/perguntas.interface';
 import { Router } from '@angular/router';
 import { SolicitacaoService } from './solicitacao.service';
@@ -16,6 +16,7 @@ export class SolicitacaoComponent implements OnInit {
     showMsg = false;
     idCarro: number;
 
+    @ViewChild('content') private content: any;
     constructor(
         private readonly solicitacaoService: SolicitacaoService,
         private readonly route: Router,
@@ -121,9 +122,7 @@ export class SolicitacaoComponent implements OnInit {
     }
 
     private scrollCol(): void {
-        setTimeout(() => {
-            window.scrollTo(0, document.body.scrollHeight);
-        }, 100);
+        document.querySelector('ion-content').scrollToBottom(100);
     }
 
 }

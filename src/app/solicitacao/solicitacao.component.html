@@ -8,7 +8,19 @@
             <ion-title>Solicitações</ion-title>
         </ion-toolbar>
     </ion-header>
-    <ion-content color="light" [scrollEvents]="true">
+    <ion-content color="light" [scrollEvents]="true" #content>
+        <ion-col>
+            <div class="box-chat" *ngIf="perguntas.length > 0">
+                <div *ngFor="let pergunta of perguntas">
+                    <app-chat (novoCarro)="goToVeiculos()" (novoAtend)="novoAtendimento($event)"
+                        (escolha)="getEscolha($event)" [pergunta]="pergunta"></app-chat>
+                </div>
+            </div>
+            <div *ngIf="showMsg" class="row">
+                <small class="ion-float-right"><strong>@SmartMechanical</strong> está digitando ...</small>
+            </div>
+        </ion-col>
+
         <!-- <div *ngIf="!render" class="ion-padding custom-skeleton">
             <ion-card>
                 <ion-card-header>
