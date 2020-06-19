@@ -3,6 +3,7 @@ import { PerguntasResponse, Alternativa } from './models/perguntas.interface';
 import { Router } from '@angular/router';
 import { SolicitacaoService } from './solicitacao.service';
 import { MeusCarrosService } from '../meus-carros/meus-carros.service';
+import { IonContent } from '@ionic/angular';
 
 @Component({
     selector: 'app-solicitacao',
@@ -16,7 +17,7 @@ export class SolicitacaoComponent implements OnInit {
     showMsg = false;
     idCarro: number;
 
-    @ViewChild('content') private content: any;
+    @ViewChild('content') private content;
     constructor(
         private readonly solicitacaoService: SolicitacaoService,
         private readonly route: Router,
@@ -33,8 +34,6 @@ export class SolicitacaoComponent implements OnInit {
         this.perguntas = [];
         this.meusCarrosService.getClienteVeiculos()
             .subscribe((veiculos) => {
-                console.log('veiculos', veiculos);
-                
                 this.hasVeiculos = true;
                 this.perguntas.push(this.solicitacaoService.montarVeiculosChat(veiculos));
             }, () => {
@@ -89,6 +88,7 @@ export class SolicitacaoComponent implements OnInit {
             .subscribe((result) => {
                 this.perguntas.push(result);
                 this.showMsg = false;
+                this.scrollCol();
             }, (err) => {
                 // console.log('err', err);
             }, () => {
@@ -118,11 +118,17 @@ export class SolicitacaoComponent implements OnInit {
     }
 
     goToVeiculos() {
-        this.route.navigate(['veiculos']);
+        this.route.navigate(['meus-carros']);
     }
 
     private scrollCol(): void {
-        document.querySelector('ion-content').scrollToBottom(100);
+        setTimeout(() => {
+            getContent().scrollToBottom(500);
+        }, 100);
     }
 
+}
+
+const getContent = () => {
+    return document.querySelector('ion-content');
 }

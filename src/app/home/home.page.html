@@ -7,6 +7,9 @@
                 <ion-menu-button></ion-menu-button>
             </ion-buttons>
             <ion-title>Home</ion-title>
+            <ion-buttons class="reload" slot="end">
+                <ion-icon (click)="getAll()" name="reload-outline"></ion-icon>
+            </ion-buttons>
         </ion-toolbar>
     </ion-header>
     <ion-content color="light" [scrollEvents]="true">
@@ -34,7 +37,6 @@
                 <ion-card-header>
                     <ion-card-title>
                         {{ ordem.carro.marca }} | {{ ordem.carro.modelo }}
-                        <span class="ion-float-right">{{ totalValue(ordem) | currency: 'BRL' }}</span>
                     </ion-card-title>
                     <ion-card-subtitle>
                         <ion-col>
@@ -53,8 +55,21 @@
                     <strong>Diagnosticado</strong>
                     <br>
                     {{ ordem.problemaDescrito }}
+                    <ion-row>
+                        <ion-col>
+                            <ion-card-title class="ion-float-left">
+                                <strong>{{ totalValue(ordem) | currency: 'BRL' }}</strong>
+                            </ion-card-title>
+                            <!-- <span class="ion-float-right">
+                                
+                                <a>
+                                    <ion-icon name="build-outline"></ion-icon>
+                                    Serviços
+                                </a>
+                            </span> -->
+                        </ion-col>
+                    </ion-row>
                 </ion-card-content>
-                <hr />
                 <ion-row>
                     <ion-col *ngIf="ordem.status === 1 && !submitting">
                         <ion-button (click)="aprovarOrcamento(i, 2, true)" class="ion-float-right" color="secondary">

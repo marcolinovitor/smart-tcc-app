@@ -1,11 +1,24 @@
 <ion-row *ngIf="!pergunta.isClient">
     <ion-col size="12">
         <ion-item class="ion-float-left smart">
-            <ion-label class="ion-text-wrap">
+            <ion-label class="wrap ion-text-wrap">
                 <ion-text color="primary">
                     <h3>@SmartMechanical</h3>
                 </ion-text>
                 <p>{{ pergunta.pergunta }}</p>
+                <ion-text *ngIf="pergunta.descricao || pergunta.sugerirCadastro">
+                    <small>
+                        <p class="text-b des">{{ pergunta?.descricao }}</p>
+                        <div class="float-right buttons">
+                            <ion-button color="primary" *ngIf="!pergunta.sugerirCadastro" (click)="novoAtendimento()">
+                                Novo
+                            </ion-button>
+                            <ion-button *ngIf="pergunta.sugerirCadastro" (click)="cadastrar()" color="primary">Cadastrar</ion-button>
+                            &nbsp; &nbsp;
+                            <ion-button type="button" (click)="finalizar()" color="danger">Encerrar</ion-button>
+                        </div>
+                    </small>
+                </ion-text>
             </ion-label>
             <ion-select *ngIf="pergunta.alternativas" interface="action-sheet"
                 (ionChange)="setAlternativa($event.target.value)" [disabled]="selected" placeholder="Selecione">

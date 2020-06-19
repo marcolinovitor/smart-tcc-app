@@ -24,9 +24,11 @@ export class HomePage implements OnInit {
     }
 
     getAll() {
+        this.render = false;
         this.homeService.getOrcamentos()
             .subscribe((osList) => {
                 this.ordens = osList;
+                this.ordens.map(order => order.updating = false);
             }, () => {
                 //
             }, () => {

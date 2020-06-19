@@ -56,7 +56,7 @@ export class HomeService {
 			}
 			case 4: return {
 				status: 'Em andamento',
-				classBadge: 'info',
+				classBadge: 'secondary',
                 classBorder: 'border-info',
                 btnClass: 'btn-info'
             }
@@ -67,7 +67,7 @@ export class HomeService {
             }
 			default: return {
 				status: 'Indisponível',
-				classBadge: 'secondary',
+				classBadge: 'light',
 				classBorder: 'border-light',
 			}
 		}

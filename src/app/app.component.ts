@@ -30,12 +30,6 @@ export class AppComponent {
         this.platform.ready().then(() => {
             this.statusBar.styleDefault();
             this.splashScreen.hide();
-            // console.log(this.router.url);
-            // this.platform.backButton.subscribeWithPriority(-1, () => {
-            //     if (this.router.url === '/login') {
-            //         App.exitApp();
-            //     }
-            // });
         });
     }
 

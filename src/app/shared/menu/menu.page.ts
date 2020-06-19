@@ -20,9 +20,7 @@ export class MenuPage implements OnChanges {
         this.clienteNome = this.getCliente().nome.split(' ')[0];
     }
 
-    ngOnChanges(changes) {
-        console.log(changes);
-        
+    ngOnChanges(changes) {        
     }
 
     logout() {
@@ -36,7 +34,7 @@ export class MenuPage implements OnChanges {
     private createMenu() {
         return [
             { label: 'Home', icon: 'home-outline', path: '/home' },
-            { label: 'Meus veículos', icon: 'car-sport-outline', path: '/veiculos' },
+            { label: 'Meus veículos', icon: 'car-sport-outline', path: '/meus-carros' },
             { label: 'Solicitação', icon: 'chatbubbles-outline', path: '/solicitacoes' },
         ];
     }
