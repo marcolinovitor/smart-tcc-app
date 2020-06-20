@@ -23,10 +23,10 @@ export class SolicitacaoComponent implements OnInit {
         private readonly route: Router,
         private readonly meusCarrosService: MeusCarrosService,
     ) {
-        this.perguntas = [];
     }
 
     ngOnInit(): void {
+        this.perguntas = [];
         this.getVeiculos();
     }
 
@@ -111,14 +111,15 @@ export class SolicitacaoComponent implements OnInit {
 
     novoAtendimento(novo: boolean) {
         if (novo) {
-            this.getPerguntas();
+            this.ngOnInit();
+            // this.getPerguntas();
         } else {
-            this.route.navigate(['home']);
+            this.route.navigate(['home'], { replaceUrl: true });
         }
     }
 
     goToVeiculos() {
-        this.route.navigate(['meus-carros']);
+        this.route.navigate(['meus-carros'], { replaceUrl: true });
     }
 
     private scrollCol(): void {
