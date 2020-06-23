@@ -25,7 +25,7 @@ export class SolicitacaoService {
             .pipe(
                 tap(result => {
                     if (hasVeiculo) {
-                        result.pergunta = result.pergunta.replace('Olá', `Hmmm, certo`);
+                        result.pergunta = result.pergunta.replace('Olá', this.setCumprimento());
                     }
                 })
             );
@@ -45,6 +45,18 @@ export class SolicitacaoService {
 
     sugerirCadastro() {
         return new PerguntasResponse().setSegurirCadastro();
+    }
+
+    private setCumprimento(): string {
+        const option = Math.floor(Math.random() * 5) + 1;
+        return {
+            0: 'Legal, vamos lá',
+            1: 'Ótimo, então',
+            2: 'Hmmm, certo',
+            3: 'Muito bem',
+            4: 'Ok, aqui vamos nós',
+            5: 'Certo, então',
+        }[option];
     }
 
     
