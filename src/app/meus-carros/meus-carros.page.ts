@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { MeusCarrosService } from './meus-carros.service';
 import { MeuVeiculo } from './model/meu-veiculo';
 import { ToastController, AlertController } from '@ionic/angular';
@@ -8,7 +8,7 @@ import { ToastController, AlertController } from '@ionic/angular';
     templateUrl: './meus-carros.page.html',
     styleUrls: ['./meus-carros.page.scss'],
 })
-export class MeusCarrosPage implements OnInit {
+export class MeusCarrosPage implements OnInit, OnDestroy {
 
     render = false;
     veiculos = new Array<MeuVeiculo>();
@@ -20,12 +20,21 @@ export class MeusCarrosPage implements OnInit {
         public alertController: AlertController,
     ) { }
 
+    ionViewWillEnter() {
+        if (this.meusCarrosService.thereIsNew) {
+            this.getMeusCarros();
+        }
+    }
+
     ngOnInit(): void {
         this.getMeusCarros();
     }
+    
+    ngOnDestroy() {
+        this.meusCarrosService.thereIsNew = false;
+    }
 
     getMeusCarros(): void {
-        this.render = true;
         this.meusCarrosService.getClienteVeiculos()
             .subscribe(result => {
                 console.log(result)
