@@ -32,7 +32,7 @@
             </ion-card>
         </div>
 
-        <ion-row *ngFor="let ordem of ordens let i = index">
+        <ion-row *ngFor="let ordem of ordens">
             <ion-card *ngIf="render && ordens.length > 0;" class="fill {{ status(ordem.status).classBorder }}">
                 <ion-card-header>
                     <ion-card-title>
@@ -71,10 +71,10 @@
                     </ion-row>
                 </ion-card-content>
                 <ion-row>
-                    <ion-col *ngIf="ordem.status === 1 && !submitting">
-                        <ion-button (click)="aprovarOrcamento(i, 2, true)" class="ion-float-right" color="secondary">
+                    <ion-col *ngIf="ordem.status === 1 && !ordem.updating">
+                        <ion-button (click)="aprovarOrcamento(ordem, 2, true)" class="ion-float-right" color="secondary">
                             Aprovar</ion-button>
-                        <ion-button (click)="aprovarOrcamento(i, 3, false)" class="ion-float-right" fill="outline"
+                        <ion-button (click)="aprovarOrcamento(ordem, 3, false)" class="ion-float-right" fill="outline"
                             color="medium">Reprovar</ion-button>
                     </ion-col>
                     <ion-col *ngIf="submitting && ordem.updating">

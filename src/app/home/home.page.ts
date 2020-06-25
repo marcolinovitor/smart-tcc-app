@@ -36,17 +36,23 @@ export class HomePage implements OnInit {
             });
     }
 
-    aprovarOrcamento(i: number, status: number, aprovar: boolean) {
-        this.changeStatus(i);
-        const ref = this.ordens[i].referencia;
+    aprovarOrcamento(ordem: IOrcamentoList, status: number, aprovar: boolean) {
+        const index = this.ordens.indexOf(ordem);
+        this.changeStatus(index);
+        const ref = ordem.referencia;
         this.submitting = true;
         this.homeService.aprovarOrcamento(ref, status, aprovar)
-            .subscribe((updated) => {
+            .subscribe(updated => {
                 if (updated) {
-                    this.ordens[i].aprovacao = updated.aprovado;
-                    this.ordens[i].status = updated.status;
-                    this.changeStatus(i);
+                    this.ordens[index].aprovacao = updated.aprovado;
+                    this.ordens[index].status = updated.status;
+                    this.changeStatus(index);
                 }
+            }, (err) => {
+                this.changeStatus(index);
+                this.submitting = false;
+            }, () => {
+                this.submitting = false;
             });
     }
 
